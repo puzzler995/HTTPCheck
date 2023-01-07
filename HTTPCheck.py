@@ -25,7 +25,7 @@ class HttpCheckApp:
 
 
 
-
-root = ttk.TTk()
-App = HttpCheckApp(root)
-App.master.mainloop()
+if __name__=="main":
+  root = ttk.TTk()
+  App = HttpCheckApp(root)
+  App.master.mainloop() 
