@@ -1,8 +1,16 @@
+import datetime
 import TermTk as ttk
+
+class Site:
+  def __init__(self, name: str, url: str, lastupdate) -> None:
+    self.name = name
+    self.url = name
+    self.lastupdate = lastupdate
 
 class HttpCheckApp:
   def __init__(self, master: ttk.TTk) -> None:
     self.master=master
+    self.siteList = []
     self.mainLayout = ttk.TTkGridLayout(columnMinHeight=0,columnMinWidth=2)
     self.master.setLayout(self.mainLayout)
     self.sideBarLayout = ttk.TTkVBoxLayout()
