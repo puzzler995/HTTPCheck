@@ -35,7 +35,9 @@ class HttpCheckApp:
     header = ttk.TTkLabel(text="HTTP Status Checker", color=ttk.TTkColor.BOLD+ttk.TTkColor.UNDERLINE)
     self.sideBarLayout.addWidget(header)
     self.sideBarLayout.addWidget(ttk.TTkButton(border=False, text="Sidebar1"))
-    self.sideBarLayout.addWidget(ttk.TTkButton(border=False, text="Sidebar2"))
+    quitBtn = ttk.TTkButton(border=False, text="Exit")
+    quitBtn.clicked.connect(self.quit)
+    self.sideBarLayout.addWidget(quitBtn)
     self.mainLayout.addItem(self.sideBarLayout,0,0,4,1)
     self.loadConfig()
     currow = 0
@@ -70,6 +72,9 @@ class HttpCheckApp:
     
     with configfile.open("w") as file:
       yaml.dump(config, file)
+  def quit(self):
+    self.saveConfig()
+    ttk.TTkHelper.quit()
 
 # if __name__=="main":
 root = ttk.TTk()
