@@ -60,7 +60,16 @@ class HttpCheckApp:
     if config["sites"] is not None:
       for site in config["sites"]:
         self.siteList.append(Site(site["name"], site["url"], site["lastupdate"]))
-
+  def saveConfig(self):
+    #TODO: Actually Change this to config file location
+    configfile = Path.cwd() / "test" / "config.yaml"
+    sites = []
+    for site in self.siteList:
+      sites.append({"name": site.name, "url": site.url, "lastupdate": site.lastupdate})
+    config = {"config": {"dev": self.dev, "refreshtime": self.refreshTime, "sites": sites}}
+    
+    with configfile.open("w") as file:
+      yaml.dump(config, file)
 
 # if __name__=="main":
 root = ttk.TTk()
