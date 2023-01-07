@@ -1,7 +1,7 @@
 # A test configuration file
 config:
   dev: True
-  refreshtime: 5m
+  refreshtime: 5
   sites:
     - name: "Home Assistant"
       url: "192.168.0.7:8123"
