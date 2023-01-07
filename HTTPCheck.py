@@ -8,17 +8,20 @@ class Site:
     self.url = url
     self.lastupdate = lastupdate
     self.laststatus = "..."
+    self.frame = None
 
 class SiteFrame(ttk.TTkFrame):
   def __init__(self, site:Site, *args, **kwargs):
     ttk.TTkFrame.__init__(self,title=site.name, *args, **kwargs)
-    ttk.TTkLabel(parent=self, pos=(0,0), text=site.url)
-    ttk.TTkLabel(parent=self, pos=(0,1), text=site.laststatus)
-    ttk.TTkLabel(parent=self, pos=(0,2), text=site.lastupdate)
-    ttk.TTkButton(parent=self, pos=(0,3), border=False, text="Edit")
-    ttk.TTkButton(parent=self, pos=(0,4), border=False, text="Delete")
+    self.site = site
+    self.urllabel = ttk.TTkLabel(parent=self, pos=(0,0), text=site.url)
+    self.statuslabel = ttk.TTkLabel(parent=self, pos=(0,1), text=site.laststatus)
+    self.lastupdatelabel = ttk.TTkLabel(parent=self, pos=(0,2), text=site.lastupdate)
+    self.editbutton = ttk.TTkButton(parent=self, pos=(0,3), border=False, text="Edit")
+    self.deletebutton = ttk.TTkButton(parent=self, pos=(0,4), border=False, text="Delete")
     self.setMinimumHeight(7)
     self.setMinimumWidth(15)
+    self.site.frame = self
 
 class HttpCheckApp:
   def __init__(self, master: ttk.TTk) -> None:
@@ -43,8 +46,7 @@ class HttpCheckApp:
       if curcol == 6:
         currow += 1
         curcol = 2
-    # for row in range(0,4):
-    #   for col in range(2,6):
+    print("Done!")
   def loadConfig(self):
     #TODO: Actually Change this to config file location
     configfile = Path.cwd() / "test" / "config.yaml"
