@@ -1,0 +1,13 @@
+# A test configuration file
+config:
+  refreshurl: 5m
+  sites:
+    - name: "Home Assistant"
+      url: "192.168.0.7:8123"
+      lastupdate: "WELP"
+    - name: "Proxmox"
+      url: "192.168.0.3.8006"
+      lastupdate: "WELP"
+    - name: "Router"
+      url: "192.168.0.1"
+      lastupdate: "WELP"
