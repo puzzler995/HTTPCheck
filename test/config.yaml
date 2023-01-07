@@ -1,20 +1,19 @@
-# A test configuration file
 config:
-  dev: True
+  dev: true
   refreshtime: 5
   sites:
-    - name: "Home Assistant"
-      url: "192.168.0.7:8123"
-      lastupdate: "WELP"
-    - name: "Proxmox"
-      url: "192.168.0.3.8006"
-      lastupdate: "WELP"
-    - name: "Router"
-      url: "192.168.0.1"
-      lastupdate: "WELP"
-    - name: "Google"
-      url: "google.com"
-      lastupdate: "WELP"
-    - name: "Reddit"
-      url: "reddit.com"
-      lastupdate: "WELP"
+  - lastupdate: 2022-09-19 13:55:26
+    name: Home Assistant
+    url: 192.168.0.7:8123
+  - lastupdate: 2022-09-19 13:55:26
+    name: Proxmox
+    url: 192.168.0.3.8006
+  - lastupdate: 2022-09-19 13:55:26
+    name: Router
+    url: 192.168.0.1
+  - lastupdate: 2022-09-19 13:55:26
+    name: Google
+    url: google.com
+  - lastupdate: 2022-09-19 13:55:26
+    name: Reddit
+    url: reddit.com
