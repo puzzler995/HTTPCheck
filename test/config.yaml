@@ -1,6 +1,7 @@
 # A test configuration file
 config:
-  refreshurl: 5m
+  dev: True
+  refreshtime: 5m
   sites:
     - name: "Home Assistant"
       url: "192.168.0.7:8123"
@@ -10,4 +11,10 @@ config:
       lastupdate: "WELP"
     - name: "Router"
       url: "192.168.0.1"
+      lastupdate: "WELP"
+    - name: "Google"
+      url: "google.com"
+      lastupdate: "WELP"
+    - name: "Reddit"
+      url: "reddit.com"
       lastupdate: "WELP"
