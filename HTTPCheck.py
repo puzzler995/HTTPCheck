@@ -28,7 +28,7 @@ class HttpCheckApp:
     self.master=master
     self.dev = False
     self.refreshTime = 0
-    self.siteList = []
+    self.siteList = [Site]
     self.mainLayout = ttk.TTkGridLayout(columnMinHeight=0,columnMinWidth=2)
     self.master.setLayout(self.mainLayout)
     self.sideBarLayout = ttk.TTkVBoxLayout()
@@ -66,7 +66,6 @@ class HttpCheckApp:
     #TODO: Actually Change this to config file location
     configfile = Path.cwd() / "test" / "config.yaml"
     sites = []
-    site: Site
     for site in self.siteList:
       sites.append({"name": site.name, "url": site.url, "lastupdate": site.lastupdate, "laststatus": site.laststatus})
     config = {"config": {"dev": self.dev, "refreshtime": self.refreshTime, "sites": sites}}
