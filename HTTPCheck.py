@@ -3,11 +3,11 @@ from pathlib import Path
 import TermTk as ttk
 
 class Site:
-  def __init__(self, name: str, url: str, lastupdate) -> None:
+  def __init__(self, name: str, url: str, lastupdate, laststatus) -> None:
     self.name = name
     self.url = url
     self.lastupdate = lastupdate
-    self.laststatus = "..."
+    self.laststatus = laststatus
     self.frame = None
 
 class SiteFrame(ttk.TTkFrame):
@@ -61,13 +61,14 @@ class HttpCheckApp:
     self.refreshTime = config["refreshtime"]
     if config["sites"] is not None:
       for site in config["sites"]:
-        self.siteList.append(Site(site["name"], site["url"], site["lastupdate"]))
+        self.siteList.append(Site(site["name"], site["url"], site["lastupdate"], site["laststatus"]))
   def saveConfig(self):
     #TODO: Actually Change this to config file location
     configfile = Path.cwd() / "test" / "config.yaml"
     sites = []
+    site: Site
     for site in self.siteList:
-      sites.append({"name": site.name, "url": site.url, "lastupdate": site.lastupdate})
+      sites.append({"name": site.name, "url": site.url, "lastupdate": site.lastupdate, "laststatus": site.laststatus})
     config = {"config": {"dev": self.dev, "refreshtime": self.refreshTime, "sites": sites}}
     
     with configfile.open("w") as file:
