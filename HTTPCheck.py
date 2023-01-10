@@ -40,6 +40,7 @@ class SiteFrame(ttk.LabelFrame):
 
 
 
+
 class HttpCheckApp(tk.Tk):
   def __init__(self) -> None:
     super().__init__()
@@ -51,7 +52,8 @@ class HttpCheckApp(tk.Tk):
     self.sidebar.pack(side=tk.LEFT, fill=tk.Y)
     addBtn = ttk.Button(
       self.sidebar,
-      text = "Add Site"
+      text = "Add Site",
+      command=lambda: self.spawnAddSite()
     )
     configBtn = ttk.Button(
       self.sidebar,
@@ -79,6 +81,10 @@ class HttpCheckApp(tk.Tk):
     self.siteframe.pack()
     print("Done!")
 
+  def spawnAddSite(self):
+    addSite = AddSiteDialog(self)
+    addSite.mainloop()
+
   def loadConfig(self):
     #TODO: Actually change this to config file location
     configfile = Path.cwd() / "test" / "config.yaml"
@@ -105,7 +111,6 @@ class HttpCheckApp(tk.Tk):
     with configfile.open("w") as file:
       yaml.dump(config, file)
   def quitapp(self):
-    self.saveConfig()
     self.quit()
   def deleteSite(self, site: Site):
     self.siteList.remove(site)
@@ -117,6 +122,47 @@ class HttpCheckApp(tk.Tk):
     else:
       self.curx -= 1
     self.saveConfig()
+  def addSite(self, name, url):
+    site = Site(name, url, datetime.datetime(1971,1,1,0,0,0), "...")
+    self.siteList.append(site)
+    sframe = SiteFrame(self.siteframe, site)
+    sframe.grid(column=self.curx, row=self.cury, padx=5, pady=5)
+    self.curx += 1
+    if self.curx == 4:
+      self.cury += 1
+      self.curx = 0
+    self.saveConfig()
+class AddSiteDialog(tk.Tk):
+  def __init__(self, parent: HttpCheckApp) -> None:
+    super().__init__()
+    self.resizable(False, False)
+    self.title("Add Site")
+    self.parent = parent
+    self.name = tk.StringVar()
+    self.url = tk.StringVar()
+    mainframe = ttk.Frame(self)
+    mainframe.pack(padx=10, pady=10, fill='x', expand=True)
 
+    name_label = ttk.Label(mainframe, text="Site Name:")
+    name_label.pack(fill='x', expand=True)
+    self.name_entry = ttk.Entry(mainframe, textvariable=self.name)
+    self.name_entry.pack(fill='x', expand=True)
+    self.name_entry.focus()
+
+    url_label = ttk.Label(mainframe, text="URL:")
+    url_label.pack(fill='x', expand=True)
+    self.url_entry = ttk.Entry(mainframe, textvariable=self.url)
+    self.url_entry.pack(fill='x', expand=True)
+
+    save_button = ttk.Button(mainframe, text="Save", command=lambda: self.save_clicked())
+    save_button.pack(fill='x', expand = True, pady=10)
+  def save_clicked(self):
+    #TODO: Input Validation
+    name = self.name_entry.get()
+    url = self.url_entry.get()
+    self.parent.addSite(name, url)
+    self.destroy()
+    self.quit()
 app = HttpCheckApp()
 app.mainloop()
+app.saveConfig()
